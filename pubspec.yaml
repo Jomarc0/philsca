@@ -1,0 +1,56 @@
+name: cg_device_app
+description: "Portable Center of Gravity Computing Device - Weight & Balance System"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+
+  # State Management
+  provider: ^6.1.2
+
+  # Routing
+  go_router: ^14.2.0
+
+  # Fonts
+  google_fonts: ^6.2.1
+
+  # Bluetooth (architecture only for now, ESP32 integration later)
+  flutter_blue_plus: ^1.32.12
+
+  # Local Storage
+  shared_preferences: ^2.2.3
+
+  # Formatting
+  intl: ^0.19.0
+
+  # Animations
+  flutter_animate: ^4.5.0
+
+  # Progress / percent indicators
+  percent_indicator: ^4.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  #   - assets/icons/
+
+  # Custom fonts can be added here if not using google_fonts package downloads
+  # fonts:
+  #   - family: Poppins
+  #     fonts:
+  #       - asset: assets/fonts/Poppins-Regular.ttf
