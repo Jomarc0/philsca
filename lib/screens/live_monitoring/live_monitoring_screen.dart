@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
-import '../../core/theme/app_theme.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/sensor_tile.dart';
@@ -43,7 +42,8 @@ class _LiveMonitoringScreenState extends State<LiveMonitoringScreen> {
             child: ListView(
               padding: const EdgeInsets.all(AppSizes.paddingL),
               children: [
-                const SectionHeader(title: 'Sensor Readings', liveIndicator: true),
+                const SectionHeader(
+                    title: 'Sensor Readings', liveIndicator: true),
                 const SizedBox(height: AppSizes.paddingM),
                 ...cg.sensors.map((s) => SensorTile(sensor: s)),
               ],
@@ -52,7 +52,10 @@ class _LiveMonitoringScreenState extends State<LiveMonitoringScreen> {
           // Bottom summary panel
           Container(
             padding: const EdgeInsets.fromLTRB(
-              AppSizes.paddingL, AppSizes.paddingL, AppSizes.paddingL, AppSizes.paddingM,
+              AppSizes.paddingL,
+              AppSizes.paddingL,
+              AppSizes.paddingL,
+              AppSizes.paddingM,
             ),
             decoration: BoxDecoration(
               color: AppColors.primaryBackground,
@@ -68,17 +71,27 @@ class _LiveMonitoringScreenState extends State<LiveMonitoringScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _SummaryStat(label: 'TOTAL WEIGHT', value: '${result.totalWeightKg.toStringAsFixed(0)} kg'),
+                      _SummaryStat(
+                          label: 'TOTAL WEIGHT',
+                          value:
+                              '${result.totalWeightKg.toStringAsFixed(0)} kg'),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('CENTER OF GRAVITY',
-                              style: const TextStyle(color: AppColors.textOnDarkMuted, fontSize: 11, fontWeight: FontWeight.w500)),
+                              style: const TextStyle(
+                                  color: AppColors.textOnDarkMuted,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500)),
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              Text('${result.centerOfGravityIn.toStringAsFixed(1)} in',
-                                  style: const TextStyle(color: AppColors.textOnDark, fontSize: 20, fontWeight: FontWeight.w700)),
+                              Text(
+                                  '${result.centerOfGravityIn.toStringAsFixed(1)} in',
+                                  style: const TextStyle(
+                                      color: AppColors.textOnDark,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700)),
                               const SizedBox(width: 8),
                               StatusBadge(status: result.status, compact: true),
                             ],
@@ -103,9 +116,12 @@ class _LiveMonitoringScreenState extends State<LiveMonitoringScreen> {
                       Expanded(
                         child: CustomButton(
                           label: bt.isConnected ? 'Disconnect' : 'Connect',
-                          icon: bt.isConnected ? Icons.bluetooth_disabled : Icons.bluetooth,
+                          icon: bt.isConnected
+                              ? Icons.bluetooth_disabled
+                              : Icons.bluetooth,
                           variant: CustomButtonVariant.danger,
-                          onPressed: () => bt.isConnected ? bt.disconnect() : bt.connect(),
+                          onPressed: () =>
+                              bt.isConnected ? bt.disconnect() : bt.connect(),
                         ),
                       ),
                     ],
@@ -130,9 +146,17 @@ class _SummaryStat extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: AppColors.textOnDarkMuted, fontSize: 11, fontWeight: FontWeight.w500)),
+        Text(label,
+            style: const TextStyle(
+                color: AppColors.textOnDarkMuted,
+                fontSize: 11,
+                fontWeight: FontWeight.w500)),
         const SizedBox(height: 4),
-        Text(value, style: const TextStyle(color: AppColors.textOnDark, fontSize: 20, fontWeight: FontWeight.w700)),
+        Text(value,
+            style: const TextStyle(
+                color: AppColors.textOnDark,
+                fontSize: 20,
+                fontWeight: FontWeight.w700)),
       ],
     );
   }

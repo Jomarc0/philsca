@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/widgets/status_badge.dart';
 import '../../models/status_model.dart';
 import '../../providers/bluetooth_provider.dart';
 import '../../providers/cg_provider.dart';
@@ -39,24 +38,30 @@ class DashboardScreen extends StatelessWidget {
             child: Row(
               children: [
                 Icon(Icons.bluetooth_connected,
-                    color: bt.isConnected ? AppColors.primaryBlue : AppColors.textOnDarkMuted),
+                    color: bt.isConnected
+                        ? AppColors.primaryBlue
+                        : AppColors.textOnDarkMuted),
                 const SizedBox(width: 10),
                 Text(
                   bt.isConnected ? 'Device Connected' : 'Device Disconnected',
-                  style: const TextStyle(color: AppColors.textOnDark, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                      color: AppColors.textOnDark, fontWeight: FontWeight.w600),
                 ),
                 const Spacer(),
                 Icon(Icons.battery_full, color: AppColors.green, size: 18),
                 const SizedBox(width: 4),
                 Text('${bt.batteryPercent}%',
-                    style: const TextStyle(color: AppColors.textOnDark, fontWeight: FontWeight.w600)),
+                    style: const TextStyle(
+                        color: AppColors.textOnDark,
+                        fontWeight: FontWeight.w600)),
               ],
             ),
           ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: AppSizes.paddingL),
 
-          Text("TODAY'S STATUS", style: Theme.of(context).textTheme.titleMedium),
+          Text("TODAY'S STATUS",
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
 
           // Today's Status card
@@ -79,7 +84,8 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Icon(Icons.check_circle, color: result.status.color, size: 26),
+                  Icon(Icons.check_circle,
+                      color: result.status.color, size: 26),
                 ],
               ),
             ),
@@ -126,11 +132,16 @@ class DashboardScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('AIRCRAFT STATUS', style: Theme.of(context).textTheme.titleMedium),
+                      Text('AIRCRAFT STATUS',
+                          style: Theme.of(context).textTheme.titleMedium),
                       const SizedBox(height: 6),
                       Text(result.status.label,
-                          style: TextStyle(color: result.status.color, fontWeight: FontWeight.w800, fontSize: 18)),
-                      Text('Within CG Limits', style: Theme.of(context).textTheme.labelSmall),
+                          style: TextStyle(
+                              color: result.status.color,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 18)),
+                      Text('Within CG Limits',
+                          style: Theme.of(context).textTheme.labelSmall),
                     ],
                   ),
                 ),
@@ -164,16 +175,22 @@ class DashboardScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('AIRCRAFT', style: Theme.of(context).textTheme.titleMedium),
+                      Text('AIRCRAFT',
+                          style: Theme.of(context).textTheme.titleMedium),
                       const SizedBox(height: 4),
                       Text(cg.aircraft.name,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w700)),
                     ],
                   ),
                   const Spacer(),
-                  const Icon(Icons.airplanemode_active, color: AppColors.primaryBlue),
+                  const Icon(Icons.airplanemode_active,
+                      color: AppColors.primaryBlue),
                   const SizedBox(width: 6),
-                  const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+                  const Icon(Icons.chevron_right,
+                      color: AppColors.textSecondary),
                 ],
               ),
             ),
@@ -190,10 +207,22 @@ class DashboardScreen extends StatelessWidget {
             mainAxisSpacing: AppSizes.paddingM,
             childAspectRatio: 2.4,
             children: [
-              _QuickNavButton(icon: Icons.podcasts, label: 'Live Monitoring', onTap: () => context.go('/live')),
-              _QuickNavButton(icon: Icons.center_focus_strong, label: 'CG Visualizer', onTap: () => context.go('/cg')),
-              _QuickNavButton(icon: Icons.history, label: 'History', onTap: () => context.go('/history')),
-              _QuickNavButton(icon: Icons.table_chart_outlined, label: 'Weight Table', onTap: () => context.push('/weight-distribution')),
+              _QuickNavButton(
+                  icon: Icons.podcasts,
+                  label: 'Live Monitoring',
+                  onTap: () => context.go('/live')),
+              _QuickNavButton(
+                  icon: Icons.center_focus_strong,
+                  label: 'CG Visualizer',
+                  onTap: () => context.go('/cg')),
+              _QuickNavButton(
+                  icon: Icons.history,
+                  label: 'History',
+                  onTap: () => context.go('/history')),
+              _QuickNavButton(
+                  icon: Icons.table_chart_outlined,
+                  label: 'Weight Table',
+                  onTap: () => context.push('/weight-distribution')),
             ],
           ).animate().fadeIn(delay: 300.ms, duration: 400.ms),
         ],
@@ -203,7 +232,11 @@ class DashboardScreen extends StatelessWidget {
 }
 
 class _StatTile extends StatelessWidget {
-  const _StatTile({required this.label, required this.value, required this.unit, required this.icon});
+  const _StatTile(
+      {required this.label,
+      required this.value,
+      required this.unit,
+      required this.icon});
 
   final String label;
   final String value;
@@ -242,7 +275,8 @@ class _StatTile extends StatelessWidget {
 }
 
 class _QuickNavButton extends StatelessWidget {
-  const _QuickNavButton({required this.icon, required this.label, required this.onTap});
+  const _QuickNavButton(
+      {required this.icon, required this.label, required this.onTap});
 
   final IconData icon;
   final String label;
@@ -266,7 +300,10 @@ class _QuickNavButton extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: const TextStyle(color: AppColors.textOnDark, fontSize: 12, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                    color: AppColors.textOnDark,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600),
               ),
             ),
           ],
