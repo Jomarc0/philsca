@@ -2,7 +2,7 @@ class AppStrings {
   AppStrings._();
 
   static const String appName = 'Portable Center of Gravity\nComputing Device';
-  static const String appNameShort = 'CG Computing Device';
+  static const String appNameShort = 'Portable Center of Gravity Computing Device';
   static const String appTagline = 'WEIGHT & BALANCE SYSTEM';
 
   // Status labels

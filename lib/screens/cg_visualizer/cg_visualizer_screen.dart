@@ -16,6 +16,7 @@ class CgVisualizerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cg = context.watch<CgProvider>();
     final result = cg.result;
+    final hasData = !result.isEmpty;
 
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
@@ -75,7 +76,10 @@ class CgVisualizerScreen extends StatelessWidget {
               // Aircraft top-view visualization with animated CG marker
               Expanded(
                 child: Center(
-                  child: _AircraftCgView(normalizedPosition: result.normalizedPosition),
+                  child: _AircraftCgView(
+                    normalizedPosition: result.normalizedPosition,
+                    showNoDataOverlay: !hasData,
+                  ),
                 ),
               ),
 
@@ -88,7 +92,7 @@ class CgVisualizerScreen extends StatelessWidget {
                   _LimitReadout(label: 'AFT LIMIT', value: '${result.forwardLimitIn.toStringAsFixed(1)} in'),
                   _LimitReadout(
                     label: 'CG POSITION',
-                    value: '${result.centerOfGravityIn.toStringAsFixed(1)} in',
+                    value: hasData ? '${result.centerOfGravityIn.toStringAsFixed(1)} in' : '--',
                     highlight: true,
                   ),
                   _LimitReadout(label: 'FWD LIMIT', value: '${result.aftLimitIn.toStringAsFixed(1)} in'),
@@ -110,9 +114,11 @@ class CgVisualizerScreen extends StatelessWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        result.status.label == 'SAFE'
-                            ? 'CG is within the allowable limits.'
-                            : 'CG is close to or outside allowable limits.',
+                        !hasData
+                            ? 'No data record yet. Add a load entry to calculate CG.'
+                            : result.status.label == 'SAFE'
+                                ? 'CG is within the allowable limits.'
+                                : 'CG is close to or outside allowable limits.',
                         style: const TextStyle(color: AppColors.textOnDarkMuted, fontSize: 12),
                       ),
                     ),
@@ -164,9 +170,13 @@ class _LimitReadout extends StatelessWidget {
 /// Aircraft top-view silhouette with a green center track and an
 /// animated marker that slides to the current normalized CG position.
 class _AircraftCgView extends StatelessWidget {
-  const _AircraftCgView({required this.normalizedPosition});
+  const _AircraftCgView({
+    required this.normalizedPosition,
+    required this.showNoDataOverlay,
+  });
 
   final double normalizedPosition;
+  final bool showNoDataOverlay;
 
   @override
   Widget build(BuildContext context) {
@@ -182,11 +192,11 @@ class _AircraftCgView extends StatelessWidget {
             alignment: Alignment.topCenter,
             children: [
               // Aircraft silhouette
-            Image.asset(
-              'assets/images/airplane.png',
-              width: constraints.maxWidth * 0.55,
-              fit: BoxFit.contain,
-            ),
+              Image.asset(
+                'assets/images/airplane.png',
+                width: constraints.maxWidth * 0.55,
+                fit: BoxFit.contain,
+              ),
               // Green center track line
               Positioned(
                 top: constraints.maxHeight * 0.18,
@@ -214,6 +224,27 @@ class _AircraftCgView extends StatelessWidget {
                   ),
                 ),
               ),
+              if (showNoDataOverlay)
+                Positioned.fill(
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.35),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: Colors.white.withOpacity(0.08)),
+                      ),
+                      child: const Text(
+                        'No data record yet',
+                        style: TextStyle(
+                          color: AppColors.textOnDark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         );

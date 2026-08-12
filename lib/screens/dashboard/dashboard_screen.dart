@@ -18,6 +18,7 @@ class DashboardScreen extends StatelessWidget {
     final bt = context.watch<BluetoothProvider>();
     final cg = context.watch<CgProvider>();
     final result = cg.result;
+    final hasData = !result.isEmpty;
 
     return Scaffold(
       backgroundColor: AppColors.lightGray,
@@ -76,16 +77,16 @@ class DashboardScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    result.status.label,
+                    hasData ? result.status.label : 'SAFE',
                     style: TextStyle(
-                      color: result.status.color,
+                      color: hasData ? result.status.color : AppColors.green,
                       fontSize: 26,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Icon(Icons.check_circle,
-                      color: result.status.color, size: 26),
+                      color: hasData ? result.status.color : AppColors.green, size: 26),
                 ],
               ),
             ),
@@ -99,7 +100,7 @@ class DashboardScreen extends StatelessWidget {
               Expanded(
                 child: _StatTile(
                   label: 'TOTAL\nWEIGHT',
-                  value: result.totalWeightKg.toStringAsFixed(0),
+                  value: hasData ? result.totalWeightKg.toStringAsFixed(0) : '--',
                   unit: 'kg',
                   icon: Icons.shopping_bag_outlined,
                 ),
@@ -108,7 +109,7 @@ class DashboardScreen extends StatelessWidget {
               Expanded(
                 child: _StatTile(
                   label: 'CENTER\nOF GRAVITY',
-                  value: result.centerOfGravityIn.toStringAsFixed(1),
+                  value: hasData ? result.centerOfGravityIn.toStringAsFixed(1) : '--',
                   unit: 'in',
                   icon: Icons.gps_fixed,
                 ),
@@ -135,12 +136,15 @@ class DashboardScreen extends StatelessWidget {
                       Text('AIRCRAFT STATUS',
                           style: Theme.of(context).textTheme.titleMedium),
                       const SizedBox(height: 6),
-                      Text(result.status.label,
+                      Text(hasData ? result.status.label : 'SAFE',
                           style: TextStyle(
-                              color: result.status.color,
+                              color: hasData ? result.status.color : AppColors.green,
                               fontWeight: FontWeight.w800,
                               fontSize: 18)),
-                      Text('Within CG Limits',
+                      Text(
+                          hasData
+                              ? 'Within CG Limits'
+                              : 'No data record yet',
                           style: Theme.of(context).textTheme.labelSmall),
                     ],
                   ),
@@ -148,10 +152,12 @@ class DashboardScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: result.status.color.withOpacity(0.12),
+                    color: (hasData ? result.status.color : AppColors.green)
+                        .withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.flight, color: result.status.color),
+                  child: Icon(Icons.flight,
+                      color: hasData ? result.status.color : AppColors.green),
                 ),
               ],
             ),

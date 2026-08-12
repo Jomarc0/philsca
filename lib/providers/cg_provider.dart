@@ -18,12 +18,12 @@ class CgProvider extends ChangeNotifier {
 
   final AircraftModel aircraft = AircraftModel.cessna172;
 
-List<SensorModel> _sensors = [
+  List<SensorModel> _sensors = [
     const SensorModel(
       id: 'pilot',
       stationName: 'Pilot',
       description: 'Front Left',
-      weightKg: 75,
+      weightKg: 0,
       armIn: 30.0,
       icon: Icons.person,
     ),
@@ -31,7 +31,7 @@ List<SensorModel> _sensors = [
       id: 'passenger',
       stationName: 'Passenger',
       description: 'Front Right',
-      weightKg: 80,
+      weightKg: 0,
       armIn: 30.0,
       icon: Icons.person_outline,
     ),
@@ -39,7 +39,7 @@ List<SensorModel> _sensors = [
       id: 'rear_passenger',
       stationName: 'Rear Passenger',
       description: 'Rear Seats',
-      weightKg: 120,
+      weightKg: 0,
       armIn: 34.0,
       icon: Icons.people_alt_outlined,
     ),
@@ -47,7 +47,7 @@ List<SensorModel> _sensors = [
       id: 'cargo',
       stationName: 'Cargo',
       description: 'Baggage Area',
-      weightKg: 150,
+      weightKg: 0,
       armIn: 35.0,
       icon: Icons.inventory_2_outlined,
     ),
@@ -55,7 +55,7 @@ List<SensorModel> _sensors = [
       id: 'fuel',
       stationName: 'Fuel',
       description: 'Fuel Tank',
-      weightKg: 100,
+      weightKg: 0,
       armIn: 32.0,
       icon: Icons.local_gas_station_outlined,
     ),
@@ -63,7 +63,7 @@ List<SensorModel> _sensors = [
       id: 'baggage',
       stationName: 'Baggage',
       description: 'Rear Compartment',
-      weightKg: 40,
+      weightKg: 0,
       armIn: 38.0,
       icon: Icons.work_outline,
     ),

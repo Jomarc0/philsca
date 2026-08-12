@@ -16,7 +16,7 @@ class CgWeightBalanceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'CG Computing Device',
+      title: 'Portable Center of Gravity Computing Device',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       routerConfig: _router,

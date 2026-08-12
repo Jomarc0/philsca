@@ -25,6 +25,9 @@ class WeightModel {
   }
 
   CgStatus get status {
+    if (totalWeightKg <= 0 || totalMomentKgIn <= 0 || centerOfGravityIn <= 0) {
+      return CgStatus.safe;
+    }
     if (centerOfGravityIn < forwardLimitIn || centerOfGravityIn > aftLimitIn) {
       return CgStatus.unsafe;
     }
@@ -49,4 +52,7 @@ class WeightModel {
         totalMomentKgIn: 0,
         centerOfGravityIn: 0,
       );
+
+  bool get isEmpty =>
+      totalWeightKg <= 0 && totalMomentKgIn <= 0 && centerOfGravityIn <= 0;
 }

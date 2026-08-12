@@ -21,7 +21,7 @@ dependencies:
   # Fonts
   google_fonts: ^6.2.1
 
-  # Bluetooth (architecture only for now, ESP32 integration later)
+  # Bluetooth
   flutter_blue_plus: ^1.32.12
 
   # Local Storage
@@ -36,10 +36,32 @@ dependencies:
   # Progress / percent indicators
   percent_indicator: ^4.2.3
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.1
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/HML.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#05111F"
+  image: assets/images/APL.png
+  android: true
+  ios: false
+  web: false
+  fullscreen: true
+
+  android_12:
+    color: "#05111F"
+    image: assets/images/APL.png
+    icon_background_color: "#05111F"
 
 flutter:
   uses-material-design: true
@@ -47,10 +69,4 @@ flutter:
   assets:
     - assets/images/
 
-  #   - assets/icons/
-
-  # Custom fonts can be added here if not using google_fonts package downloads
-  # fonts:
-  #   - family: Poppins
-  #     fonts:
-  #       - asset: assets/fonts/Poppins-Regular.ttf
+  # Custom fonts can be added here if not using google_fonts package

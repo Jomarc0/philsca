@@ -32,6 +32,7 @@ class _LiveMonitoringScreenState extends State<LiveMonitoringScreen> {
     final cg = context.watch<CgProvider>();
     final bt = context.watch<BluetoothProvider>();
     final result = cg.result;
+    final hasData = !result.isEmpty;
 
     return Scaffold(
       backgroundColor: AppColors.lightGray,
@@ -71,10 +72,11 @@ class _LiveMonitoringScreenState extends State<LiveMonitoringScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _SummaryStat(
+                          _SummaryStat(
                           label: 'TOTAL WEIGHT',
-                          value:
-                              '${result.totalWeightKg.toStringAsFixed(0)} kg'),
+                          value: hasData
+                              ? '${result.totalWeightKg.toStringAsFixed(0)} kg'
+                              : '--'),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -87,7 +89,9 @@ class _LiveMonitoringScreenState extends State<LiveMonitoringScreen> {
                           Row(
                             children: [
                               Text(
-                                  '${result.centerOfGravityIn.toStringAsFixed(1)} in',
+                                  hasData
+                                      ? '${result.centerOfGravityIn.toStringAsFixed(1)} in'
+                                      : '--',
                                   style: const TextStyle(
                                       color: AppColors.textOnDark,
                                       fontSize: 20,
